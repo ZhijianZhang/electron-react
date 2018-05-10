@@ -12,8 +12,6 @@ const argv = process
   .argv
   .slice(2)
 
-console.log('argv', argv)
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -22,21 +20,27 @@ function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
-  // window 加载build好的html.
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, './build/index.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
+  //判断是否是开发模式
+  if (argv && argv[1] == 'dev') {
+    mainWindow.loadURL("http://localhost:3000/")
+  } else if (argv && argv[1] == 'build') {
+    // window 加载build好的html.
+    mainWindow.loadURL(url.format({
+      pathname: path.join(__dirname, './build/index.html'),
+      protocol: 'file:',
+      slashes: true
+    }))
+  }
 
   // Open the DevTools. mainWindow.webContents.openDevTools() Emitted when the
   // window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows in an array if
-    // your app supports multi windows, this is the time when you should delete the
-    // corresponding element.
-    mainWindow = null
-  })
+  mainWindow
+    .on('closed', function () {
+      // Dereference the window object, usually you would store windows in an array if
+      // your app supports multi windows, this is the time when you should delete the
+      // corresponding element.
+      mainWindow = null
+    })
 }
 
 // This method will be called when Electron has finished initialization and is
