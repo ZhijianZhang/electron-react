@@ -23,7 +23,7 @@ function createWindow() {
   //判断是否是开发模式
   if (argv && argv[1] == 'dev') {
     mainWindow.loadURL("http://localhost:3000/")
-  } else if (argv && argv[1] == 'build') {
+  } else {
     // window 加载build好的html.
     mainWindow.loadURL(url.format({
       pathname: path.join(__dirname, './build/index.html'),
