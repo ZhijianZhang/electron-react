@@ -1,4 +1,4 @@
-import {observable, action, runInAction, configure} from 'mobx'
+import {observable, action, configure} from 'mobx'
 
 configure({enforceActions: true})
 
@@ -10,4 +10,4 @@ class PageStore {
   }
 }
 
-export default new PageStore
+export default new PageStore()
